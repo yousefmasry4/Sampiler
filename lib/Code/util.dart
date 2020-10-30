@@ -1,3 +1,5 @@
+import 'package:untitled13/Code/Errors.dart';
+
 import 'C_lINE.dart';
 
 class Util{
@@ -32,14 +34,15 @@ class Util{
   List aa=List();
   List<cLine> Lines=List();
   List linesListWithData =List();
-  var errorsTable = {};
+  List errorsTable = List();
   int startingAddress;
   void reset(){
+    err.lin_0();
     linesListWithData.clear();
     Lines=List();
     aa=List();
     symTable={};
-    errorsTable={};
+    errorsTable=List();
     startingAddress=0;
   }
 
@@ -49,6 +52,7 @@ class Util{
     });
 
   }
+  List get_err()=>errorsTable;
 }
 class ab{
   int loc;

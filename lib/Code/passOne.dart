@@ -1,7 +1,7 @@
 import 'package:untitled13/Code/util.dart';
 
 import 'C_lINE.dart';
-
+import 'Errors.dart';
 class passOne{
 
   var str="jo".runtimeType;
@@ -32,6 +32,10 @@ class passOne{
     int currentAddress = util.startingAddress;
     print(currentAddress);
     util.Lines.forEach((element) {
+
+      if(util.errorsTable.isNotEmpty){
+        return;
+      }
       if(element.type) {
         element.set_location(currentAddress);
         switch(element.instruction_normal){
@@ -45,6 +49,7 @@ class passOne{
             currentAddress +=3;
         }
       }
+
     });
   }
 

@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:untitled13/Code/Errors.dart';
 import 'package:untitled13/Code/util.dart';
 
 class cLine {
@@ -30,7 +31,10 @@ class cLine {
     }
   }
   List instructionSplit(String data) => data.toLowerCase().split(" ");
+
+
   cLine(String Line) {
+    err.lin_p();
     List data2 = instructionSplit(Line.trim());
     List data=List();
     data2.forEach((element) {
@@ -44,7 +48,10 @@ class cLine {
     if (data.length == 2) {
       data.insert(0, null);
     }
-    if (data[1] == "start") {
+    if(data.length <2 ||data.length >=4) {
+      err.try_size();
+
+    }else if (data[1] == "start") {
       type = false;
       this.Location = int.parse(data[2], radix: 16);
       util.startingAddress = this.Location;
@@ -55,6 +62,14 @@ class cLine {
       label_normal = data[0];
 
     }
+    if(label_normal == null) {
+      err.try_num_alp(operands_normal);
+    }
+    err.try_num_alp(label_normal);
+    err.try_lang(label_normal);
+    err.lang(instruction_normal);
+
+
   }
 
   @override

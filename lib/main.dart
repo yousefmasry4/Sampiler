@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:html' as html;
 import 'dart:typed_data';
 import 'dart:async';
@@ -68,6 +69,8 @@ class _MyHomePageState extends State<MyHomePage> {
   GlobalKey _formKey = new GlobalKey();
   TextEditingController in_cont = new TextEditingController();
 
+  List errorsTable = List();
+
   void _handleResult(Object result) {
     setState(() {
       String x = result.toString().split(",").last;
@@ -101,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
         String s = new String.fromCharCodes(_bytesData);
         z_lines = null;
         sayo = s;
-        in_cont.text = sayo;
+        in_cont.text = sayo.replaceAll("\t", " ");
         _selectedFile = _bytesData;
       }
     });
@@ -150,13 +153,19 @@ class _MyHomePageState extends State<MyHomePage> {
           ));
     } else {
       util.reset();
-      var data = in_cont.text.replaceAll("\t", " ").split("\n");
+      var data = in_cont.text.split("\n");
       print(data);
       passOne p1 = passOne(data);
+      if(util.errorsTable.isEmpty)
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => result()),
       );
+      else
+        setState(() {
+          z_lines=5;
+          errorsTable=util.get_err();
+        });
     }
   }
 
@@ -191,6 +200,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Stack(
             children: [
               TextFormField(
+
                 onTap: () {
                   setState(() {
                     z_lines = null;
@@ -260,6 +270,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 visible: in_cont.text.length == 0,
               )
             ],
+          ),
+          ...errorsTable.map((e) =>
+          Text(e,style: TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.w400,
+              fontStyle: FontStyle.normal,
+              fontFamily: 'Open Sans',
+              fontSize: 15))
           )
         ],
       ),
@@ -270,4 +288,5 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
 }
