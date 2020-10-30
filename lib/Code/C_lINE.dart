@@ -55,6 +55,8 @@ class cLine {
       type = false;
       this.Location = int.parse(data[2], radix: 16);
       util.startingAddress = this.Location;
+      util.symTable[data[0]]=Location;
+      print(util.symTable);
     } else {
       type = true;
       _set_instruction(data[1]);
@@ -68,7 +70,6 @@ class cLine {
     err.try_num_alp(label_normal);
     err.try_lang(label_normal);
     err.lang(instruction_normal);
-
 
   }
 

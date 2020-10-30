@@ -57,5 +57,32 @@ class errors{
     util.errorsTable.add(err_line());
     util.errorsTable.add("    error in instruction");
   }
+
+  try_var(String element){
+    if(element == null)
+      return;
+    if(int.tryParse(element, radix: 16) == null){
+      print("$element is not hex");
+      if(element.indexOf(',') != -1){
+        element=element.split(",")[0];
+      }
+      if(util.symTable.containsKey(element)  == true){
+        if (double.tryParse(element[0]) != null ) {
+          print(element);
+
+          //TODO : error msmy 8alat
+          util.errorsTable.add(err_line());
+          util.errorsTable.add("*    error at $element");
+
+        }
+      }else{
+        util.errorsTable.add(err_line());
+        util.errorsTable.add("    error at $element");
+      }
+    }else{
+      print("$element is        hex");
+
+    }
+  }
 }
 errors err=errors();

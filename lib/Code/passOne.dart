@@ -24,6 +24,12 @@ class passOne{
     print("********************************");
     print(util.symTable);
     util.get_small();
+    err.lin_0();
+    util.Lines.forEach((element) {
+      err.try_var(element.operands_normal);
+      err.lin_p();
+    });
+
   }
 
 
