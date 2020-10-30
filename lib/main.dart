@@ -4,6 +4,10 @@ import 'dart:typed_data';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
+import 'package:untitled13/Code/passOne.dart';
+import 'package:untitled13/Code/util.dart';
+import 'package:untitled13/result.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -58,21 +62,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   int z_lines = 5;
   var soso;
-  String sayo="";
+  String sayo = "";
   List<int> _selectedFile;
   Uint8List _bytesData;
   GlobalKey _formKey = new GlobalKey();
   TextEditingController in_cont = new TextEditingController();
 
-
-
-
-
   void _handleResult(Object result) {
     setState(() {
-      String x=result.toString().split(",").last;
+      String x = result.toString().split(",").last;
       print(result.toString().split("/")[0].split(":")[1]);
-      if(result.toString().split("/")[0].split(":")[1] != "text"){
+      if (result.toString().split("/")[0].split(":")[1] != "text") {
         showDialog(
             barrierDismissible: false,
             context: context,
@@ -95,11 +95,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ));
-      }else {
+      } else {
         _bytesData = base64.decode(x);
         print(_bytesData[0]);
         String s = new String.fromCharCodes(_bytesData);
-        z_lines=null;
+        z_lines = null;
         sayo = s;
         in_cont.text = sayo;
         _selectedFile = _bytesData;
@@ -121,14 +121,44 @@ class _MyHomePageState extends State<MyHomePage> {
       });
       reader.readAsDataUrl(file);
       print(reader.result.toString());
-
     });
-
-
   }
 
-
-
+  void Compile() {
+    if (in_cont.text.isEmpty) {
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          child: new AlertDialog(
+            title: new Text("Error"),
+            //content: new Text("Hello World"),
+            content: new SingleChildScrollView(
+              child: new ListBody(
+                children: [
+                  new Text("Select any file or enter your code"),
+                ],
+              ),
+            ),
+            actions: [
+              new FlatButton(
+                child: new Text('ok'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ));
+    } else {
+      util.reset();
+      var data = in_cont.text.replaceAll("\t", " ").split("\n");
+      print(data);
+      passOne p1 = passOne(data);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => result()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -139,101 +169,102 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      backgroundColor: Color.fromRGBO(8,10,28,1),
+      backgroundColor: Color.fromRGBO(8, 10, 28, 1),
       appBar: AppBar(
-        title: Text("Sampiler",style :TextStyle(
-            color: Colors.grey[800],
-            fontWeight: FontWeight.w900,
-            fontStyle: FontStyle.normal,
-            fontFamily: 'Open Sans',
-            fontSize: 40)),
+        title: Text("Sampiler",
+            style: TextStyle(
+                color: Colors.grey[800],
+                fontWeight: FontWeight.w900,
+                fontStyle: FontStyle.normal,
+                fontFamily: 'Open Sans',
+                fontSize: 40)),
       ),
+        persistentFooterButtons: <Widget>[new Text('Youssef Mohamed El Masry (17101264) Arab Academy for Science, Technology',textAlign: TextAlign.left,
+            style: TextStyle(
+                color: Colors.grey[800],
+                fontWeight: FontWeight.w900,
+                fontStyle: FontStyle.normal,
+                fontFamily: 'Open Sans',
+                fontSize: 20))],
       body: ListView(
-          children: <Widget>[
-            Stack(
-             children: [
-               TextFormField(
-
-                 onTap: (){
-                   setState(() {
-                     z_lines=null;
-                   });
-                 },
-                 controller: in_cont,
-                 onChanged: (data){
-                   setState(() {
-                     soso=data.split("\n");
-                   });
-                 },
-                 minLines: 5,
-                 maxLines: z_lines,
-                 autofocus: false,
-                 cursorColor: Colors.amber,
-                 style: TextStyle(color: Colors.white,fontSize: 25),
-                 decoration: InputDecoration(
-
-                   hintText: 'Write your Code here  OR  ',
-                   hintStyle: TextStyle(color: Colors.grey,fontSize: 25),
-                   filled: true,
-                   fillColor: Colors.black87,
-                   enabledBorder: OutlineInputBorder(
-                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                     borderSide: BorderSide(color: Colors.white38),
-                   ),
-                   focusedBorder: OutlineInputBorder(
-                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                     borderSide: BorderSide(color: Colors.grey),
-                   ),
-                 ),
-               ),
-               Visibility(child: Padding(padding: EdgeInsets.fromLTRB(310, 10, 0, 0),
-               child: GestureDetector(
-                 onTap: () {
-                   startWebFilePicker();
-                 },
-                 child: Container(
-                   width: 200,
-                   height: 50,
-                   decoration: BoxDecoration(
-                     gradient: LinearGradient(
-                       colors: [
-                         Colors.blue,
-                         Colors.black54,
-                       ],
-                       begin: Alignment.topLeft,
-                       end: Alignment.bottomRight,
-                     ),
-                     borderRadius: BorderRadius.circular(20),
-                     boxShadow: [
-                       BoxShadow(
-                         color: Colors.black12,
-                         offset: Offset(5, 5),
-                         blurRadius: 10,
-                       )
-                     ],
-                   ),
-                   child: Center(
-                     child: Text(
-                       'Select File',
-                       style: TextStyle(
-                         color: Colors.white,
-                         fontSize: 30,
-                         fontWeight: FontWeight.w500,
-                       ),
-                     ),
-                   ),
-                 ),
-               ),
-               ),
-                 visible: in_cont.text.length == 0,
-               )
-             ],
-            )
-
-          ],
-        ),
+        children: <Widget>[
+          Stack(
+            children: [
+              TextFormField(
+                onTap: () {
+                  setState(() {
+                    z_lines = null;
+                  });
+                },
+                controller: in_cont,
+                minLines: 5,
+                maxLines: z_lines,
+                cursorColor: Colors.amber,
+                style: TextStyle(color: Colors.white, fontSize: 25),
+                decoration: InputDecoration(
+                  hintText: 'Write your Code here  OR  ',
+                  hintStyle: TextStyle(color: Colors.grey, fontSize: 25),
+                  filled: true,
+                  fillColor: Colors.black87,
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.white38),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
+                ),
+              ),
+              Visibility(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(310, 10, 0, 0),
+                  child: GestureDetector(
+                    onTap: () {
+                      startWebFilePicker();
+                    },
+                    child: Container(
+                      width: 200,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.blue,
+                            Colors.black54,
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            offset: Offset(5, 5),
+                            blurRadius: 10,
+                          )
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Select File',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                visible: in_cont.text.length == 0,
+              )
+            ],
+          )
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
-       // onPressed: startWebFilePicker,
+        onPressed: Compile,
         tooltip: 'Run',
         child: Icon(Icons.play_arrow),
       ), // This trailing comma makes auto-formatting nicer for build methods.
