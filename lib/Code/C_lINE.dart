@@ -7,19 +7,17 @@ class cLine {
   bool type=null; //false if start or end
   String instruction_normal=null;
   String instruction=null;
-  String operands=null;
+  int operands=null;
   String operands_normal=null;
   String label=null;
   int Location=null;
+  var objCode=null;
+  bool have_x=false;
 
   String label_normal;
   _set_instruction(String inst) {
     instruction_normal = inst;
-    try {
-      instruction = util.opTable[inst];
-    } catch (e) {
-      instruction = null;
-    }
+
   }
   //object code
 
@@ -62,7 +60,10 @@ class cLine {
       _set_instruction(data[1]);
       operands_normal = data[2];
       label_normal = data[0];
-
+      if(operands_normal.indexOf(',') != -1){
+        operands_normal=operands_normal.split(",")[0];
+        have_x=true;
+      }
     }
     if(label_normal == null) {
       err.try_num_alp(operands_normal);
