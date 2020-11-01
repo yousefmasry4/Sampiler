@@ -14,6 +14,11 @@ class errors{
   try_num_alp(String element){
     if(element == null)
       return;
+    if(element[0]=='c')
+      element=err.try_num_alp(element.substring(2,element.length-1));
+    else if(element[0]=='x')
+      element=err.try_num_alp(element.substring(2,element.length-1));
+
     String firstLetter = element[0];
     if (double.tryParse(firstLetter) != null || int.tryParse(element, radix: 16) != null) {
       print(element);
@@ -59,8 +64,17 @@ class errors{
   }
 
   try_var(String element){
+
     if(element == null)
       return;
+    element=element.trim();
+    print("sss"+element);
+    if(element.indexOf('c')==0)
+      element=element.substring(2,element.length-1);
+    else if(element.indexOf('x')==0)
+      element=element.substring(2,element.length-1);
+
+    print("zzzzzzzzzzzzzzzz"+element);
     if(int.tryParse(element, radix: 16) == null){
       print("$element is not hex");
       if(element.indexOf(',') != -1){

@@ -26,6 +26,10 @@ class passOne{
     util.get_small();
     err.lin_0();
     util.Lines.forEach((element) {
+      if(element.instruction_normal=="end" && int.parse( element.operands_normal.trim().toString(), radix: 16) != util.startingAddress){
+        print("saaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaad   ${element.toString()}");
+        err.try_var(element.operands_normal);
+      }else
       err.try_var(element.operands_normal);
       err.lin_p();
     });

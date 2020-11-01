@@ -66,9 +66,18 @@ class cLine {
         have_x=true;
       }
     }
-    if(label_normal == null) {
-      err.try_num_alp(operands_normal);
+    if(label_normal == null && instruction_normal != "end") {
+        print("                                                   "+instruction_normal);
+        err.try_num_alp(operands_normal);
     }
+    /*
+          if(operands_normal[0]=='c')
+      err.try_num_alp(operands_normal.substring(2,operands_normal.length-1));
+      else if(operands_normal[0]=='c')
+      err.try_num_alp(operands_normal.substring(2,operands_normal.length-1));
+      else
+        err.try_num_alp(operands_normal);
+     */
     err.try_num_alp(label_normal);
     err.try_lang(label_normal);
     err.lang(instruction_normal);

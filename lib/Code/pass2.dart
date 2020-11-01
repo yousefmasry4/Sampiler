@@ -14,8 +14,7 @@ class Pass2 {
 
         // get address
 
-        e.operands = int.parse(util.symTable[e.operands_normal].toString(),
-            radix: 16); //from hex to int
+        e.operands = int.parse(util.symTable[e.operands_normal].toString()); //from hex to int
 
         // if indexing is used add value of 'x' bit to address
 
@@ -54,7 +53,7 @@ class Pass2 {
           .toString()
           .length) + h.toString();
 
-  String x_c_code(String c) => c.substring(2, c.length);
+  String x_c_code(String c) => c.substring(2, c.length-1);
 
 
   void writeObjFile() {
