@@ -64,7 +64,7 @@ class _MyHomePageState extends State<result> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      persistentFooterButtons: <Widget>[new Text('Youssef Mohamed El Masry (17101264) Arab Academy for Science, Technology',textAlign: TextAlign.left,
+      persistentFooterButtons: <Widget>[new Text('Sampiler v1.0.0    Youssef Mohamed El Masry (17101264) Arab Academy for Science, Technology',textAlign: TextAlign.left,
           style: TextStyle(
               color: Colors.grey[800],
               fontWeight: FontWeight.w900,
@@ -193,7 +193,7 @@ class _MyHomePageState extends State<result> {
                                           fontStyle: FontStyle.normal,
                                           fontFamily: 'Open Sans',
                                           fontSize: 20))),
-                                  DataCell(Text('test',
+                                  DataCell(Text('${e.objCode}',
                                       style: TextStyle(
                                           color: Colors.white70,
                                           fontWeight: FontWeight.bold,
@@ -304,6 +304,49 @@ class _MyHomePageState extends State<result> {
                               fontSize: 30,
                               fontWeight: FontWeight.w500,
                             ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 20, 0, 0),
+                    width: 700,
+                    child: Theme(
+                      data: Theme.of(context)
+                          .copyWith(dividerColor: Colors.white),
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.vertical,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: DataTable(
+                            columns: <DataColumn>[
+                              DataColumn(
+                                label: Text('HTE RECORDS',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w900,
+                                        fontStyle: FontStyle.italic,
+                                        fontFamily: 'Open Sans',
+                                        fontSize: 20)),
+                              ),
+                            ],
+                            columnSpacing: 50,
+                            rows: <DataRow>[
+                              ...util.final_out.split("\n").map((e) => DataRow(
+                                cells: <DataCell>[
+                                  DataCell(Text('$e',
+                                      overflow: TextOverflow.fade,
+                                      style: TextStyle(
+                                          color: Colors.white70,
+                                          fontWeight: FontWeight.bold,
+                                          fontStyle: FontStyle.normal,
+                                          fontFamily: 'Open Sans',
+                                          fontSize: 20))),
+
+                                ],
+                              ))
+                            ],
                           ),
                         ),
                       ),
