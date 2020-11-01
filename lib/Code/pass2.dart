@@ -15,7 +15,7 @@ class Pass2{
 
           // get address
 
-          e.operands=int.parse(util.symTable[e.operands_normal] , radix: 16); //from hex to int
+          e.operands=int.parse(util.symTable[e.operands_normal].toString() , radix: 16); //from hex to int
 
           // if indexing is used add value of 'x' bit to address
 
@@ -51,7 +51,35 @@ class Pass2{
 
 
     });
+
   }
-  String HexSize(h,limit)=>"0"*(limit-h.toString().length)+h.toString();
+  String HexSize(String h,limit)=>"0"*(limit-h.toString().length)+h.toString();
   String x_c_code(String c)=>c.substring(2,c.length);
+
+
+  void writeObjFile(){
+    util.startingAddress=HexSize(util.startingAddress.toRadixString(16), 6);
+
+    //calculate length of program
+    print(util.startingAddress);
+    print(util.progName);
+    util.lengthOfProg=(util.Lines.last.Location - util.Lines.first.Location ).toRadixString(16);
+    print(util.lengthOfProg);
+
+    util.final_out +="H." + util.progName + "."+util.startingAddress +"."+ util.lengthOfProg + "\n";
+
+    this.writeTextRecord();
+
+
+  }
+
+
+  writeTextRecord(){
+
+    String temp="T.${HexSize(util.Lines[0].Location.toRadixString(16),6)}";
+
+  /*  for(int i=0;i<util.Lines.length;i++){
+
+    }*/
+  }
 }

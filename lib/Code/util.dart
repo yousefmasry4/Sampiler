@@ -35,15 +35,23 @@ class Util{
   List<cLine> Lines=List();
   List linesListWithData =List();
   List errorsTable = List();
-  int startingAddress;
+  var startingAddress;
+  String progName;
+  String final_out="";
+  String lengthOfProg;
+  var Temp;
   void reset(){
     err.lin_0();
+    progName=null;
+    lengthOfProg=null;
+    final_out="";
     linesListWithData.clear();
     Lines=List();
     aa=List();
     symTable={};
     errorsTable=List();
     startingAddress=0;
+    Temp=null;
   }
 
   List get_small(){

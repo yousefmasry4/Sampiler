@@ -33,6 +33,28 @@ class _MyHomePageState extends State<result> {
     return i;
   }
 
+
+  download(String text){
+
+// prepare
+    final bytes = utf8.encode(text.toString());
+    final blob = html.Blob([bytes]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final anchor = html.document.createElement('a') as html.AnchorElement
+      ..href = url
+      ..style.display = 'none'
+      ..download = 'some_name.txt';
+    html.document.body.children.add(anchor);
+
+// download
+    anchor.click();
+
+// cleanup
+    html.document.body.children.remove(anchor);
+    html.Url.revokeObjectUrl(url);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -242,6 +264,46 @@ class _MyHomePageState extends State<result> {
                                     ],
                                   ))
                             ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 20, 0, 0),
+                    child: GestureDetector(
+                      onTap: () {
+                        download(util.final_out);
+                      },
+                      child: Container(
+                        width: 700,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.blue,
+                              Colors.black54,
+                            ],
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              offset: Offset(5, 5),
+                              blurRadius: 10,
+                            )
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Download out.txt',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
                       ),

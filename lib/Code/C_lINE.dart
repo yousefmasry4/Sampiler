@@ -54,7 +54,7 @@ class cLine {
       this.Location = int.parse(data[2], radix: 16);
       util.startingAddress = this.Location;
       util.symTable[data[0]]=Location;
-      print(util.symTable);
+      util.progName=data[0];
     } else {
       type = true;
       _set_instruction(data[1]);

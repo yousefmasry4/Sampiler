@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:html' as html;
@@ -8,6 +10,8 @@ import 'package:http_parser/http_parser.dart';
 import 'package:untitled13/Code/passOne.dart';
 import 'package:untitled13/Code/util.dart';
 import 'package:untitled13/result.dart';
+
+import 'Code/pass2.dart';
 
 void main() {
   runApp(MyApp());
@@ -110,9 +114,20 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
+  download(){
+
+    String content = "hello";
+    //final content = base64Encode(rawData);
+    final anchor = AnchorElement(
+        href: "data:application/octet-stream;charset=utf-16le;base64,$content")
+      ..setAttribute("download", "file.txt")
+      ..click();
+
+  }
   startWebFilePicker() async {
     html.InputElement uploadInput = html.FileUploadInputElement();
-    uploadInput.multiple = true;
+    uploadInput.multiple = false;
     uploadInput.draggable = true;
     uploadInput.click();
     uploadInput.onChange.listen((e) {
@@ -153,14 +168,20 @@ class _MyHomePageState extends State<MyHomePage> {
           ));
     } else {
       util.reset();
+      setState(() {
+        errorsTable.clear();
+      });
       var data = in_cont.text.split("\n");
       print(data);
       passOne p1 = passOne(data);
-      if(util.errorsTable.isEmpty)
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => result()),
-      );
+      if(util.errorsTable.isEmpty) {
+        Pass2 p2 = Pass2();
+        p2..writeObjFile();
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => result()),
+        );
+      }
       else
         setState(() {
           z_lines=5;
