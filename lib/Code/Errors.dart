@@ -69,9 +69,9 @@ class errors{
       return;
     element=element.trim();
     print("sss"+element);
-    if(element.indexOf('c')==0)
+    if(element.toUpperCase().indexOf('C')==0)
       element=element.substring(2,element.length-1);
-    else if(element.indexOf('x')==0)
+    else if(element.toUpperCase().indexOf('X')==0)
       element=element.substring(2,element.length-1);
 
     print("zzzzzzzzzzzzzzzz"+element);

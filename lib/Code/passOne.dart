@@ -54,7 +54,9 @@ class passOne{
           case "resw":
             currentAddress += 3 * int.parse(element.operands_normal);break; // 3shan de ward
           case "byte":
-            currentAddress += element.operands_normal.substring(2,element.operands_normal.length).length;break;
+            int s=element.operands_normal.substring(2,element.operands_normal.length-1).length;
+            print("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss    $s    ${element.operands_normal.substring(2,element.operands_normal.length-1)}");
+            currentAddress +=element.operands_normal.toString().toLowerCase().indexOf('x') == 0?s/2:s;break;
           default:
             currentAddress +=3;
         }

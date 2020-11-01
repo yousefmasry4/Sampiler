@@ -22,14 +22,14 @@ class Pass2 {
           e.operands += int.parse("8000", radix: 16);
         }
         //calculate object code
-        e.objCode = e.instruction + e.operands.toRadixString(16);
+        e.objCode = e.instruction +Util.HexSize( e.operands.toRadixString(16),4);
       }
 
       // handle 'WORD' & 'BYTE'
       switch (e.instruction_normal) {
         case 'word':
           e.objCode =
-              HexSize(int.parse(e.operands_normal).toRadixString(16), 6);
+              int.parse(e.operands_normal).toRadixString(16);
           break;
         case "byte":
           switch (e.operands_normal[0]) {
@@ -48,16 +48,13 @@ class Pass2 {
     });
   }
 
-  String HexSize(String h, limit) =>
-      "0" * (limit - h
-          .toString()
-          .length) + h.toString();
+
 
   String x_c_code(String c) => c.substring(2, c.length-1);
 
 
   void writeObjFile() {
-    util.startingAddress = HexSize(util.startingAddress.toRadixString(16), 6);
+    util.startingAddress = Util.HexSize(util.startingAddress.toRadixString(16), 6);
 
     //calculate length of program
     print(util.startingAddress);
@@ -67,11 +64,11 @@ class Pass2 {
             16);
     print(util.lengthOfProg);
 
-    util.final_out += "H." + util.progName +'x'*(6-util.progName.length)+"." + HexSize(util.startingAddress,6) + "." +
-        HexSize(util.lengthOfProg,6)+ "\n";
+    util.final_out += "H." + util.progName +'x'*(6-util.progName.length)+"." + Util.HexSize(util.startingAddress,6) + "." +
+        Util.HexSize(util.lengthOfProg,6)+ "\n";
 
     this.writeTextRecord();
-    util.final_out+="E."+HexSize(util.startingAddress,6);
+    util.final_out+="E."+Util.HexSize(util.startingAddress,6);
   }
 
 
@@ -99,8 +96,8 @@ class Pass2 {
 
 
         if(element[i-1].objCode != null )
-        util.final_out+= "T.${HexSize(
-            s_element.Location.toRadixString(16), 6)}.${HexSize(
+        util.final_out+= "T.${Util.HexSize(
+            s_element.Location.toRadixString(16), 6)}.${Util.HexSize(
             len.toRadixString(16), 2)}$temp_code\n";
 
         //update start line
@@ -109,7 +106,7 @@ class Pass2 {
         //clear old code
         temp_code = "";
       }else if(element[i].objCode != null){
-        temp_code+=".${HexSize(element[i].objCode, 6)}";
+        temp_code+=".${Util.HexSize(element[i].objCode, 6)}";
       }
     }
   }

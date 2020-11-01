@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
         String s = new String.fromCharCodes(_bytesData);
         z_lines = null;
         sayo = s;
-        in_cont.text = sayo.replaceAll("\t", " ");
+        in_cont.text = sayo.replaceAll("\t", " ").replaceAll(", ", ",");
         _selectedFile = _bytesData;
       }
     });

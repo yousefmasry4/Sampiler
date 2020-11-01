@@ -165,7 +165,7 @@ class _MyHomePageState extends State<result> {
                                           fontFamily: 'Open Sans',
                                           fontSize: 20))),
                                   DataCell(Text(
-                                      '${e.Location.toRadixString(16).toUpperCase()}',
+                                      '${Util.HexSize(e.Location.toRadixString(16).toUpperCase(),4)}',
                                       style: TextStyle(
                                           color: Colors.white70,
                                           fontWeight: FontWeight.bold,
@@ -186,14 +186,14 @@ class _MyHomePageState extends State<result> {
                                           fontStyle: FontStyle.normal,
                                           fontFamily: 'Open Sans',
                                           fontSize: 20))),
-                                  DataCell(Text('${e.operands_normal== null? "":e.operands_normal}',
+                                  DataCell(Text('${e.operands_normal== null? e.type==false?util.progName:"":e.operands_normal}',
                                       style: TextStyle(
                                           color: Colors.white70,
                                           fontWeight: FontWeight.bold,
                                           fontStyle: FontStyle.normal,
                                           fontFamily: 'Open Sans',
                                           fontSize: 20))),
-                                  DataCell(Text('${e.objCode}',
+                                  DataCell(Text('${e.objCode == null ? "No obj code":e.objCode.toString().toUpperCase() }',
                                       style: TextStyle(
                                           color: Colors.white70,
                                           fontWeight: FontWeight.bold,
@@ -245,7 +245,7 @@ class _MyHomePageState extends State<result> {
                             ],
                             columnSpacing: 50,
                             rows: <DataRow>[
-                              ...util.aa.map((e) => DataRow(
+                              ...util.aa.sublist(1).map((e) => DataRow(
                                     cells: <DataCell>[
                                       DataCell(Text('${e.name}',
                                           style: TextStyle(

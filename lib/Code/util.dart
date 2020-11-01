@@ -53,7 +53,10 @@ class Util{
     startingAddress=0;
     Temp=null;
   }
-
+  static String HexSize(String h, limit) =>
+      "0" * (limit - h
+          .toString()
+          .length) + h.toString();
   List get_small(){
     symTable.forEach((key, value) {
       aa.add(ab(key,value));
