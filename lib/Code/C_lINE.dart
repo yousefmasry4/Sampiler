@@ -49,17 +49,30 @@ class cLine {
     if(data.length <2 ||data.length >=4) {
       err.try_size();
 
-    }else if (data[1] == "start") {
+    }else if (data[1].toString().toLowerCase() == "start") {
       type = false;
       this.Location = int.parse(data[2], radix: 16);
       util.startingAddress = this.Location;
-      this.instruction_normal='start';
-      util.symTable[data[0]]=Location;
-      util.progName=data[0];
+      this.instruction_normal = 'start';
+      util.symTable[data[0]] = Location;
+      util.progName = data[0];
     } else {
       type = true;
+
       _set_instruction(data[1]);
       operands_normal = data[2];
+
+
+      if (data[1].toString().toLowerCase() == "end") {
+
+        this.operands_normal = data[2] == util.Lines.first.operands_normal ||
+            data[2] == util.Lines[1].label_normal ? util.startingAddress
+            .toRadixString(16) : data[2];
+        print("                                   ss                   ${this
+            .operands_normal}");
+      }
+
+
       label_normal = data[0];
       if(operands_normal.indexOf(',') != -1){
         operands_normal=operands_normal.split(",")[0];

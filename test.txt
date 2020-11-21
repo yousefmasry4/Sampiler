@@ -17,3 +17,25 @@ K300	WORD	100
 THREE	WORD	3
 TWENTY	WORD	20
 	End	Prog1
+
+
+
+prog start 3500
+first lda zero
+sta index
+loop ldx index
+lda zero
+sta alpha,x
+lda index
+add three
+sta index
+comp k300
+tix twenty
+jlt loop
+index resw 1
+alpha resw 100
+zero word 0
+k300 word 100
+three word 3
+twenty word 20
+end first
