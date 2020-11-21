@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'dart:html' as html;
 import 'dart:typed_data';
 import 'dart:async';
@@ -302,11 +303,70 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: Compile,
-        tooltip: 'Run',
-        child: Icon(Icons.play_arrow),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButton: SpeedDial(
+        // both default to 16
+        marginRight: 18,
+        marginBottom: 20,
+        animatedIcon: AnimatedIcons.menu_close,
+        animatedIconTheme: IconThemeData(size: 22.0),
+
+        closeManually: false,
+        curve: Curves.bounceIn,
+        overlayColor: Colors.black,
+        overlayOpacity: 0.5,
+        onOpen: () => print('OPENING DIAL'),
+        onClose: () => print('DIAL CLOSED'),
+        tooltip: 'Speed Dial',
+        heroTag: 'speed-dial-hero-tag',
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.black,
+        elevation: 8.0,
+        shape: CircleBorder(),
+        children: [
+          SpeedDialChild(
+              child: Icon(Icons.delete),
+              backgroundColor: Colors.red,
+              label: 'clear',
+              labelStyle: TextStyle(fontSize: 18.0),
+              onTap: in_cont.clear
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.play_arrow),
+            backgroundColor: Colors.blue,
+            label: 'sic ',
+            labelStyle: TextStyle(fontSize: 18.0),
+            onTap:Compile,
+          ),
+          SpeedDialChild(
+            child: Icon(Icons.playlist_play_sharp),
+            backgroundColor: Colors.green,
+            label: 'sic xe',
+            labelStyle: TextStyle(fontSize: 18.0),
+            onTap: () =>         showDialog(
+                barrierDismissible: false,
+                context: context,
+                child: new AlertDialog(
+                  title: new Text("youssef:"),
+                  //content: new Text("Hello World"),
+                  content: new SingleChildScrollView(
+                    child: new ListBody(
+                      children: [
+                        new Text("it will come soon isa"),
+                      ],
+                    ),
+                  ),
+                  actions: [
+                    new FlatButton(
+                      child: new Text('isa'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                )),
+          ),
+        ],
+      ),
     );
   }
 
