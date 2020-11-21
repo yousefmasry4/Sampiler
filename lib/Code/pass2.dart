@@ -74,21 +74,23 @@ class Pass2 {
 
   writeTextRecord() {
     var temp_code = "";
+    int i =1;
     var element = util.Lines;
     var s_element = util.Lines[0];
     int len=0;
-    for (int i = 1; i < util.Lines.length; i++) {
-
+    while(true) {
+      if(i  >=  util.Lines.length) break;
       //calc len;
       if(element[i].objCode != null )
-      len = i + 1 == util.Lines.length
+      len = (i + 1 == util.Lines.length
           ? element[i].Location
-          : element[i + 1].Location - s_element.Location;
+          : element[i + 1].Location )- s_element.Location;
+
 
 
       //stope when
+      if (element[i].objCode == null   || len > 30) {
 
-      if (element[i].objCode == null   || len >60) {
 
         print("${i + 1 == util.Lines.length
             ? element[i].Location
@@ -98,16 +100,21 @@ class Pass2 {
         if(element[i-1].objCode != null )
         util.final_out+= "T.${Util.HexSize(
             s_element.Location.toRadixString(16), 6)}.${Util.HexSize(
-            len.toRadixString(16), 2)}$temp_code\n";
-
+            len > 30?(
+                element[i].Location - s_element.Location
+            ).toRadixString(16):len.toRadixString(16), 2)}$temp_code\n";
+        if(len > 30)
+          i--;
         //update start line
         s_element = i + 1 == util.Lines.length ? null : util.Lines[i + 1];
 
         //clear old code
         temp_code = "";
+
       }else if(element[i].objCode != null){
         temp_code+=".${Util.HexSize(element[i].objCode, 6)}";
       }
+      i++;
     }
   }
 }
