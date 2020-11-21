@@ -56,7 +56,8 @@ class passOne{
           case "byte":
             int s=element.operands_normal.substring(2,element.operands_normal.length-1).length;
             print("ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss    $s    ${element.operands_normal.substring(2,element.operands_normal.length-1)}");
-            currentAddress +=element.operands_normal.toString().toLowerCase().indexOf('x') == 0?s/2:s;break;
+            currentAddress += element.operands_normal.toString().toLowerCase().indexOf('x') == 0?int.parse((s/2).ceil().toString()):s;break;
+            //done
           default:
             currentAddress +=3;
         }
