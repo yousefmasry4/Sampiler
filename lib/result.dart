@@ -172,7 +172,7 @@ class _MyHomePageState extends State<result> {
                                           fontStyle: FontStyle.normal,
                                           fontFamily: 'Open Sans',
                                           fontSize: 20))),
-                                  DataCell(Text('${e.label_normal== null? "":e.label_normal}',
+                                  DataCell(Text('${e.label_normal== null? e.type==false?util.progName:"":e.label_normal}',
                                       style: TextStyle(
                                           color: Colors.white70,
                                           fontWeight: FontWeight.bold,
@@ -186,7 +186,7 @@ class _MyHomePageState extends State<result> {
                                           fontStyle: FontStyle.normal,
                                           fontFamily: 'Open Sans',
                                           fontSize: 20))),
-                                  DataCell(Text('${e.operands_normal== null? e.type==false?util.progName:"":e.operands_normal}',
+                                  DataCell(Text('${e.operands_normal== null? "":e.operands_normal}${e.have_x==true?",X":""}',
                                       style: TextStyle(
                                           color: Colors.white70,
                                           fontWeight: FontWeight.bold,
