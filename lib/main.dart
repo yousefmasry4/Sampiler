@@ -210,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 fontFamily: 'Open Sans',
                 fontSize: 40)),
       ),
-        persistentFooterButtons: <Widget>[new Text('Sampiler v1.0.0    Youssef Mohamed El Masry (17101264) Arab Academy for Science, Technology',textAlign: TextAlign.left,
+        persistentFooterButtons: <Widget>[new Text('Sampiler v1.0.1    Youssef Mohamed El Masry (17101264) Arab Academy for Science, Technology',textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey[800],
                 fontWeight: FontWeight.w900,
