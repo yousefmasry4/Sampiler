@@ -39,7 +39,9 @@ class Pass2 {
             case 'c':
               e.objCode = "";
               x_c_code(e.operands_normal).runes.forEach((c) {
-                e.objCode += c.toString().codeUnitAt(0).toRadixString(16);
+                print("${e.operands_normal} asci of $c = ${c.toRadixString(16)}");
+                //done
+                e.objCode += c.toRadixString(16);
               });
               break;
           }

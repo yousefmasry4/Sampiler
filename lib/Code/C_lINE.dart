@@ -28,7 +28,7 @@ class cLine {
         util.symTable[label_normal]=Location;
     }
   }
-  List instructionSplit(String data) => data.toLowerCase().split(" ");
+  List instructionSplit(String data) => data.split(" ");
 
 
   cLine(String Line) {
@@ -46,6 +46,7 @@ class cLine {
     if (data.length == 2) {
       data.insert(0, null);
     }
+    
     if(data.length <2 ||data.length >=4) {
       err.try_size();
 
@@ -59,9 +60,9 @@ class cLine {
     } else {
       type = true;
 
-      _set_instruction(data[1]);
-      operands_normal = data[2];
-
+      _set_instruction(data[1].toLowerCase());
+      operands_normal = data[2].toString().toLowerCase().indexOf('c') == 0?"c'${data[2].toString().substring(2,data[2].toString().length-1)}'":data[2].toLowerCase() ;
+      
 
       if (data[1].toString().toLowerCase() == "end") {
 
@@ -73,7 +74,7 @@ class cLine {
       }
 
 
-      label_normal = data[0];
+      label_normal =data[0] == null?null: data[0].toLowerCase();
       if(operands_normal.indexOf(',') != -1){
         operands_normal=operands_normal.split(",")[0];
         have_x=true;
