@@ -41,42 +41,52 @@
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-```sh
-git clone https://github.com/your_username_/Project-Name.git
+
+1. Handling Directive ‘BYTE’ with ‘X’ and 'c'
+```DART
+          case "byte":
+            int s=element.operands_normal.substring(2,element.operands_normal.length-1).length;
+            currentAddress += element.operands_normal.toString().toLowerCase().indexOf('x') == 0?int.parse((s/2).ceil().toString()):s;break;
 ```
-3. Install NPM packages
-```sh
-npm install
+2. Handling all posible error 
+[Errors.dart](https://github.com/yousefmasry4/Sampiler/blob/main/lib/Code/Errors.dart)
+4. input formater 
+[Code](https://github.com/yousefmasry4/Sampiler/blob/9aca81e4ba4fa7f1b6ff98ccb75fed7d04b321d1/lib/main.dart#L81)
+```DART
+      String x = result.toString().split(",").last;
+      print(result.toString().split("/")[0].split(":")[1]);
 ```
-4. Enter your API in `config.js`
-```JS
-const API_KEY = 'ENTER YOUR API';
+
+[input formater part 2](https://github.com/yousefmasry4/Sampiler/blob/9aca81e4ba4fa7f1b6ff98ccb75fed7d04b321d1/lib/Code/C_lINE.dart#L36)
+```DART
+    List data2 = instructionSplit(Line.trim());
+    List data=List();
+    data2.forEach((element) {
+
+      if( element.toString().replaceAll(" ", "").isNotEmpty){
+        data.add(element);
+      }
+
+    });
+    print(data);
+    if (data.length == 2) {
+      data.insert(0, null);
+    }
 ```
 
 
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/yousefmasry4/Sampiler/issues) for a list of proposed features (and known issues).
 
 
 
 <!-- CONTRIBUTING -->
 ## Contributing
-
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -96,42 +106,10 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
+Yousseff El Masry - [linkedin](https://www.linkedin.com/in/yousseff-el-masry-9346a6156/) - youssefmasry04@gmail.com
 
 
 
 
 
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=flat-square
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=flat-square
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=flat-square
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=flat-square
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+
